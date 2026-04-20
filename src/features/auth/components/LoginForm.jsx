@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import React from 'react';
 
 export const LoginForm = () => {
@@ -11,6 +12,29 @@ export const LoginForm = () => {
         {/* Línea verde separadora */}
         <div className="w-full h-0.5 bg-green-500"></div>
       </div>
+=======
+import { useNavigate } from "react-router-dom";
+
+/*
+    LoginForm.jsx: Este componente representa el formulario de inicio de sesión.
+*/
+export const LoginForm = () => {
+    const navigate = useNavigate();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Salto directo a la página principal por el momento
+        navigate("/dashboard");
+    };
+
+    return (
+        <form onSubmit={handleSubmit} className="space-y-5">
+            <div>
+                <label htmlFor="block text-sm medium 
+                text-main-blue mb-1.5 font-medium block">
+                    Email o Usuario
+                </label>
+>>>>>>> Stashed changes
 
       {/* Formulario */}
       <form className="space-y-4">
@@ -26,6 +50,7 @@ export const LoginForm = () => {
           />
         </div>
 
+<<<<<<< Updated upstream
         {/* Input: Contraseña */}
         <div>
           <label className="block text-sm font-bold text-main-blue mb-1">
@@ -44,6 +69,29 @@ export const LoginForm = () => {
             ¿Olvidaste tu contraseña?
           </a>
         </div>
+=======
+            <div>
+                <label className="block text-sm font-medium
+                text-main-blue mb-1.5">
+                    Contraseña
+                </label>
+                    
+                <input type="password" className="w-full px-3 py-2.5 text-sm
+                bg-gray-50 border border-gray-200 rounded-lg
+                focus:bg-white focus:ring-2 focus:ring-main-green/50 focus:border-main-green outline-none transition-all"></input>
+            </div>
+
+            <button type="submit" className="w-full bg-main-green
+            hover:bg-[#3da300] hover:shadow-md text-white font-semibold py-2.5
+            px-4 rounded-lg transition-all duration-200
+            text-sm mt-2">
+                Iniciar Sesión
+            </button>
+            
+        </form>
+    );
+};
+>>>>>>> Stashed changes
 
         {/* --- BOTONES ACTUALIZADOS --- */}
         <div className="pt-4 space-y-3">
