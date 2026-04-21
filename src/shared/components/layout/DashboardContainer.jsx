@@ -4,7 +4,7 @@ import { Sidebar } from "./Sidebar";
 /* 
     DashboardContainer.jsx: Este componente es el contenedor principal para el panel de administración.
 */
-export const DashboardContainer = () => {
+export const DashboardContainer = ({ children }) => {
 
     return(
         <div className="min-h-screen bg-gray-50 flex flex-col">
@@ -33,6 +33,7 @@ export const DashboardContainer = () => {
                         que se pasará como children al componente DashboardContainer.
                         Contenido del menú
                     */}
+                    {children}
                 </main>
             </div>
         </div>

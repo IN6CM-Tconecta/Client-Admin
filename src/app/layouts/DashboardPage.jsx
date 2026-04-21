@@ -9,6 +9,17 @@ import { DashboardContainer } from "../../shared/components/layout/DashboardCont
 */
 export const DashboardPage = () => {
     return(
-        <DashboardContainer />
+        <DashboardContainer>
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center w-full">
+                <h2 className="text-2xl font-bold text-gray-800 mb-6 self-start">Mapa de Rutas Transmetro</h2>
+                <iframe 
+                    src="https://www.google.com/maps/d/embed?mid=1OHKGTQ0nKQ1PNmE30sQIxY_gMR_JTdQ&ehbc=2E312F" 
+                    width="100%" 
+                    height="600" 
+                    className="rounded-lg border-none max-w-5xl"
+                    title="Mapa de Rutas"
+                ></iframe>
+            </div>
+        </DashboardContainer>
     );
 }
