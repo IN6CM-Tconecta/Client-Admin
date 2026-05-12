@@ -1,0 +1,23 @@
+FROM node:20-alpine AS build
+
+WORKDIR /app
+
+RUN npm install -g pnpm
+
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
+
+COPY . .
+
+ARG VITE_AUTH_URL
+ARG VITE_ADMIN_URL
+ENV VITE_AUTH_URL=${VITE_AUTH_URL}
+ENV VITE_ADMIN_URL=${VITE_ADMIN_URL}
+
+RUN pnpm build
+
+FROM nginx:alpine AS production
+COPY --from=build /app/dist /usr/share/nginx/html
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
