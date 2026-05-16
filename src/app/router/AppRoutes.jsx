@@ -1,16 +1,28 @@
-import {Route, Routes} from "react-router-dom";
-import { AuthPage } from "../../features/auth/pages/AuthPage";
-import { DashboardPage } from "../layouts/DashboardPage";
- 
-export const AppRoutes = ()=> {
- 
-    return (
-        <Routes>
-            {/* PÚBLICAS*/}
-            <Route path="/" element={<AuthPage />}/>
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { AuthLayout } from '../layouts/AuthLayout';
+import { AdminLayout } from '../layouts/AdminLayout';
+import { ProtectedRoute } from './ProtectedRoute';
+import { LoginView } from '../../features/auth/LoginView';
+import { DashboardView } from '../../features/dashboard/DashboardView';
+import { StationsView } from '../../features/stations/StationsView';
 
-            {/* PROTEGIDO POR ROLE */}
-            <Route path="/dashboard" element={<DashboardPage />}/>
-        </Routes>
-    );
-}
+export const AppRouter = () => {
+  return (
+    <Routes>
+      <Route element={<AuthLayout />}>
+        <Route path="/login" element={<LoginView />} />
+        {/* Aquí irían /registrar y /recuperar */}
+      </Route>
+
+      <Route element={<ProtectedRoute />}>
+        <Route path="/" element={<AdminLayout />}>
+          <Route index element={<Navigate to="/dashboard" replace />} />
+          <Route path="dashboard" element={<DashboardView />} />
+          <Route path="estaciones" element={<StationsView />} />
+          {/* Aquí irían las rutas para buses, alertas, usuarios, etc. */}
+        </Route>
+      </Route>
+      <Route path="*" element={<Navigate to="/login" replace />} />
+    </Routes>
+  );
+};

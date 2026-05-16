@@ -1,4 +1,4 @@
-import { AppRoutes } from "./router/AppRoutes.jsx";
+import { AppRouter } from './router/AppRoutes.jsx';
 import { Toaster } from 'react-hot-toast';
 
 /*
@@ -23,7 +23,7 @@ function App() {
       }}
       />
 
-      <AppRoutes />
+      <AppRouter />
     </>
   );
 }
