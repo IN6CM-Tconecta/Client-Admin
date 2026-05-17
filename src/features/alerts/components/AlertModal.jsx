@@ -74,7 +74,7 @@ export const AlertModal = ({ isOpen, onClose }) => {
             disabled={loading}
             className="flex items-center gap-2 px-6 py-2.5 bg-tc-blue hover:bg-tc-secondary text-white text-sm font-semibold rounded-xl shadow-lg shadow-tc-blue/25 hover:-translate-y-0.5 transition-all disabled:opacity-70"
           >
-            {loading ? <Loader2 size={18} className="animate-spin" /> : <Bullhorn size={18} />}
+            {loading ? <Loader2 size={18} className="animate-spin" /> : <Megaphone size={18} />}
             {loading ? 'Publicando...' : 'Publicar Alerta'}
           </button>
         </div>

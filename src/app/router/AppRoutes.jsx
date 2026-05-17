@@ -9,6 +9,7 @@ import { BusesView } from '../../features/buses/BusesView';
 import { RegisterView } from '../../features/auth/RegisterView';
 import { RecoverView } from '../../features/auth/RecoverView';
 import { AlertsView } from '../../features/alerts/AlertsView';
+import { RoutesView } from '../../features/routes/RoutesView';
 
 export const AppRouter = () => {
   return (
@@ -24,9 +25,9 @@ export const AppRouter = () => {
           <Route index element={<Navigate to="/dashboard" replace />} />
           <Route path="dashboard" element={<DashboardView />} />
           <Route path="estaciones" element={<StationsView />} />
+          <Route path="rutas" element={<RoutesView />} />
           <Route path="buses" element={<BusesView />} />
           <Route path="alertas" element={<AlertsView />} />
-          {/* Aquí irían las rutas para buses, alertas, usuarios, etc. */}
         </Route>
       </Route>
       <Route path="*" element={<Navigate to="/login" replace />} />

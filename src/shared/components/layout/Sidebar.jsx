@@ -11,10 +11,7 @@ export const Sidebar = ({ closeMobileMenu }) => {
     { name: 'Estaciones', path: '/estaciones', icon: <MapPin size={18} /> },
     { name: 'Rutas', path: '/rutas', icon: <RouteIcon size={18} /> },
     { name: 'Flotilla (Buses)', path: '/buses', icon: <Bus size={18} /> },
-    { name: 'Alertas', path: '/alertas', icon: <AlertTriangle size={18} /> },
-    { name: 'Administradores', path: '/usuarios', icon: <ShieldCheck size={18} /> },
-    { name: 'Roles y permisos', path: '/roles', icon: <Key size={18} /> },
-    { name: 'Configuración', path: '/configuracion', icon: <Settings size={18} /> },
+    { name: 'Alertas', path: '/alertas', icon: <AlertTriangle size={18} /> }
   ];
 
   return (
