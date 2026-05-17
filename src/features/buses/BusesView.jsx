@@ -50,7 +50,7 @@ export const BusesView = () => {
       </header>
 
       {/* KPI Automáticos */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
         <div className="bg-white border border-tc-line rounded-xl p-4 shadow-sm">
           <span className="text-xs text-tc-muted">Total Buses</span>
           <strong className="block text-2xl text-gray-900 mt-1">{buses.length}</strong>
@@ -59,7 +59,7 @@ export const BusesView = () => {
           <span className="text-xs text-tc-muted">Transmetro</span>
           <strong className="block text-2xl text-gray-900 mt-1">{buses.filter(b => b.serviceType === 'TRANSMETRO').length}</strong>
         </div>
-        <div className="bg-white border border-tc-line rounded-xl p-4 shadow-sm">
+        <div className="bg-white border border-tc-line rounded-xl p-4 shadow-sm col-span-2 md:col-span-1">
           <span className="text-xs text-tc-muted">En Mantenimiento</span>
           <strong className="block text-2xl text-gray-900 mt-1">{buses.filter(b => b.status === 'MAINTENANCE').length}</strong>
         </div>

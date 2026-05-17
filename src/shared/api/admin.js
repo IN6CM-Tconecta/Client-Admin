@@ -7,8 +7,8 @@ export const createBus = async (data) => await axiosAdmin.post("/buses", data);
 export const getStations = async (params) => await axiosAdmin.get("/stations", { params });
 export const createStation = async (data) => await axiosAdmin.post("/stations", data);
 // Rutas
-export const getRoutes = async (params) => await axiosAdmin.get("/routes", { params });
-export const createRoute = async (data) => await axiosAdmin.post("/routes", data);
+export const getRoutes = async (params) => await axiosAdmin.get("/roads", { params });
+export const createRoute = async (data) => await axiosAdmin.post("/roads", data);
 // Alertas
 export const getAlerts = async () => await axiosAdmin.get("/alerts");
 export const createAlert = async (data) => await axiosAdmin.post("/alerts", data);
