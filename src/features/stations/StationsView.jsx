@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Plus, Edit2 } from 'lucide-react';
-// import { useStationsStore } from './store/stationsStore'; // Descomenta cuando conectes el store de Zustand a Axios
+import { useStationsStore } from './store/stationsStore';
 
 export const StationsView = () => {
   // Datos mockeados para el ejemplo visual, aquí conectarías a tu Zustand store:

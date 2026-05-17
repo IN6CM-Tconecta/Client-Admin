@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useAuthStore } from "../../features/auth/authStore.js";
+import { useAuthStore } from "../../features/auth/store/authStore";
 
 /*
     api.js: Este archivo contiene la configuración de las instancias de axios 

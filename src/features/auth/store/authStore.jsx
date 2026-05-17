@@ -1,44 +1,68 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+import toast from 'react-hot-toast';
+import { loginRequest, registerAdminRequest, recoverPasswordRequest } from '../../../shared/api/auth';
 
-// Este store de Zustand manejará el estado global de la sesión
-export const useAuthStore = create((set) => ({
-  user: null,
-  token: null,
-  role: null,
-  loading: false,
-  error: null,
+export const useAuthStore = create(
+  persist(
+    (set) => ({
+      user: null,
+      token: null,
+      role: null,
+      loading: false,
 
-  login: async (credentials) => {
-    set({ loading: true, error: null });
-    try {
-      // ⚠️ SIMULACIÓN TEMPORAL DE LOGIN:
-      // Cuando ya tengas conectada la base de datos, aquí harás el Axios.post('/auth/login')
-      
-      // Credenciales quemadas de prueba (tomadas de tu archivo DataSeeder de Auth Server):
-      if (credentials.CUI === '0000000000000' && credentials.Password === 'AdminTransmetro2026!') {
-        
-        // Simulamos un retraso de red de 1 segundo
-        await new Promise(resolve => setTimeout(resolve, 1000));
+      login: async (credentials) => {
+        set({ loading: true });
+        try {
+          const { data } = await loginRequest(credentials);
+          
+          if (data.role !== 'Admin') {
+            toast.error("Acceso denegado: Se requiere rol de Administrador");
+            set({ loading: false });
+            return false;
+          }
 
-        set({
-          user: { email: 'admin@transmetro.com', role: 'Super Administrador' },
-          token: 'token-jwt-simulado-12345',
-          role: 'Admin',
-          loading: false
-        });
-        return true;
-      } else {
-        set({ error: 'CUI o contraseña incorrectos.', loading: false });
-        return false;
-      }
-    } catch (error) {
-      set({ error: 'Error al conectar con el servidor', loading: false });
-      return false;
-    }
-  },
+          set({ user: { id: data.userId }, token: data.token, role: data.role, loading: false });
+          toast.success("¡Bienvenido al panel!");
+          return true;
+        } catch (error) {
+          const msg = error.response?.data?.message || "CUI o contraseña incorrectos.";
+          toast.error(msg);
+          set({ loading: false });
+          return false;
+        }
+      },
 
-  logout: () => {
-    // Limpiamos el estado global al cerrar sesión
-    set({ user: null, token: null, role: null, error: null });
-  }
-}));
+      registerAdmin: async (userData) => {
+        set({ loading: true });
+        try {
+          await registerAdminRequest(userData);
+          toast.success("Administrador registrado correctamente.");
+          set({ loading: false });
+          return true;
+        } catch (error) {
+          toast.error(error.response?.data?.message || "Error al registrar el administrador");
+          set({ loading: false });
+          return false;
+        }
+      },
+
+      recoverPassword: async (email) => {
+        set({ loading: true });
+        try {
+          await recoverPasswordRequest({ Email: email });
+          toast.success("Si el correo existe, se enviará un enlace de recuperación.");
+          set({ loading: false });
+          return true;
+        } catch (error) {
+          toast.error("Error al procesar la solicitud.");
+          set({ loading: false });
+          return false;
+        }
+      },
+
+      logout: () => set({ user: null, token: null, role: null })
+    }),
+    { name: "transmetro-admin-auth" }
+  )
+);
