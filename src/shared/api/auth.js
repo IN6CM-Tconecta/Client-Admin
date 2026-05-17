@@ -4,12 +4,15 @@ export const login = async (data) => {
     return await axiosAuth.post("/auth/login", data);
 };
 
-export const loginRequest = async (data) => await axiosAuth.post("/auth/login", data);
+export const loginRequest = async (data) => await axiosAuth.post("/api/auth/login", data);
 
-export const registerAdminRequest = async (data) => await axiosAuth.post("/auth/register-admin", data);
+export const registerRequest = async (data) => await axiosAuth.post("/api/auth/register", data);
 
-export const recoverPasswordRequest = async (data) => await axiosAuth.post("/auth/recover-password", data);
+export const registerAdminRequest = async (data) => await axiosAuth.post("/api/auth/register-admin", data);
 
+export const recoverPasswordRequest = async (data) => await axiosAuth.post("/api/auth/recover-password", data);
+
+/*
 export const register = async (data) => {
     return await axiosAuth.post("/auth/register", data,
         {
@@ -19,7 +22,7 @@ export const register = async (data) => {
         }
     );
 };
-
+*/
 
 export const forgotPassword = async (email) => {
     return await axiosAuth.post("/auth/forgot-password", { email });

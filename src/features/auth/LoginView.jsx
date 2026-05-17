@@ -38,7 +38,7 @@ export const LoginView = () => {
             <User size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
             <input 
               type="text" 
-              placeholder="Usuario o correo" 
+              placeholder="CUI" 
               value={formData.CUI}
               onChange={(e) => setFormData({...formData, CUI: e.target.value})}
               className="w-full py-3.5 pl-12 pr-4 bg-gray-50 border border-gray-200 rounded-full text-sm focus:outline-none focus:border-tc-blue focus:ring-1 focus:ring-tc-blue transition-all"

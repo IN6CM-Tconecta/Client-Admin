@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import toast from 'react-hot-toast';
-import { loginRequest, registerAdminRequest, recoverPasswordRequest } from '../../../shared/api/auth';
+import { loginRequest, registerRequest, recoverPasswordRequest } from '../../../shared/api/auth';
 
 export const useAuthStore = create(
   persist(
@@ -16,32 +16,39 @@ export const useAuthStore = create(
         try {
           const { data } = await loginRequest(credentials);
           
-          if (data.role !== 'Admin') {
+          // .NET devuelve los datos con mayúscula inicial
+          const role = data.Role || data.role;
+          const token = data.Token || data.token;
+          const userId = data.UserId || data.userId;
+
+          if (role !== 'Admin') {
             toast.error("Acceso denegado: Se requiere rol de Administrador");
             set({ loading: false });
             return false;
           }
 
-          set({ user: { id: data.userId }, token: data.token, role: data.role, loading: false });
+          set({ user: { id: userId, role }, token, role, loading: false });
           toast.success("¡Bienvenido al panel!");
           return true;
         } catch (error) {
-          const msg = error.response?.data?.message || "CUI o contraseña incorrectos.";
+          // Si no hay response, es un error de CORS o red
+          const msg = error.response?.data?.message || "CUI o contraseña incorrectos (O error de conexión CORS).";
           toast.error(msg);
           set({ loading: false });
           return false;
         }
       },
 
-      registerAdmin: async (userData) => {
+      register: async (userData) => {
         set({ loading: true });
         try {
-          await registerAdminRequest(userData);
-          toast.success("Administrador registrado correctamente.");
+          // Usamos el registro normal porque el de admin requiere token previo en el backend
+          await registerRequest(userData);
+          toast.success("Cuenta registrada correctamente.");
           set({ loading: false });
           return true;
         } catch (error) {
-          toast.error(error.response?.data?.message || "Error al registrar el administrador");
+          toast.error(error.response?.data?.message || "Error al registrar la cuenta");
           set({ loading: false });
           return false;
         }
@@ -51,11 +58,11 @@ export const useAuthStore = create(
         set({ loading: true });
         try {
           await recoverPasswordRequest({ Email: email });
-          toast.success("Si el correo existe, se enviará un enlace de recuperación.");
+          toast.success("Enlace de recuperación generado en consola.");
           set({ loading: false });
           return true;
         } catch (error) {
-          toast.error("Error al procesar la solicitud.");
+          toast.error(error.response?.data?.message || "Error al procesar la solicitud.");
           set({ loading: false });
           return false;
         }
