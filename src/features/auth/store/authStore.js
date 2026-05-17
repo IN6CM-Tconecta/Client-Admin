@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { persist, createJSONStorage } from 'zustand/middleware';
 import toast from 'react-hot-toast';
 import { loginRequest, registerRequest, recoverPasswordRequest } from '../../../shared/api/auth';
 
@@ -70,6 +70,9 @@ export const useAuthStore = create(
 
       logout: () => set({ user: null, token: null, role: null })
     }),
-    { name: "transmetro-admin-auth" }
+    { 
+      name: "transmetro-admin-auth",
+      storage: createJSONStorage(() => sessionStorage)
+    }
   )
 );
