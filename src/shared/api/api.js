@@ -148,6 +148,5 @@ axiosAdmin.interceptors.response.use((res) => res, handleRefreshToken);
 // en lugar de exportar directamente las instancias. 
 // De esta manera, cada vez que se importe la función, se garantizará que las instancias de axios tengan los interceptores 
 // configurados correctamente. Por ejemplo, se podría exportar una función getAxiosAuth() que devuelva la instancia de axiosAuth con el interceptor aplicado, y lo mismo para axiosAdmin.
-// asdasdasdasdd
 export { axiosAuth, axiosAdmin };
 export { handleRefreshToken };
