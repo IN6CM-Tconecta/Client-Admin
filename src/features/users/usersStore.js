@@ -1,8 +1,8 @@
 import { create } from "zustand";
-import { getAllUsers as fetchUsersApi } from "../../shared/api/auth.js";
+import { getAllUsers as fetchUsersApi, registerAdmin } from "../../shared/api/auth.js";
 import toast from "react-hot-toast";
 
-export const useUsersStore = create((set) => ({
+export const useUsersStore = create((set, get) => ({
     users: [],
     loading: false,
     error: null,
@@ -21,4 +21,20 @@ export const useUsersStore = create((set) => ({
             toast.error(msg);
         }
     },
+
+    createAdmin: async (adminData) => {
+        try {
+            set({ loading: true, error: null });
+            const response = await registerAdmin(adminData);
+            toast.success("Administrador creado exitosamente.");
+            // Refrescar lista
+            await get().getUsers();
+            return { success: true };
+        } catch (err) {
+            const msg = err.response?.data?.message || "Error al crear administrador";
+            set({ error: msg, loading: false });
+            toast.error(msg);
+            return { success: false, message: msg };
+        }
+    }
 }));

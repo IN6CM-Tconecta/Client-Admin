@@ -7,6 +7,7 @@ import { Roads } from "../../features/roads/components/Roads.jsx";
 import { Stations } from "../../features/stations/components/Stations.jsx";
 import { Alerts } from "../../features/alerts/components/Alerts.jsx";
 import { Users } from "../../features/users/components/Users.jsx";
+import { Buses } from "../../features/buses/components/Buses.jsx";
 import { useAuthStore } from "../../features/auth/authStore.js";
 
 export const AppRoutes = () => {
@@ -30,6 +31,7 @@ export const AppRoutes = () => {
                 <Route index element={<DashboardOverview />} />
                 <Route path="roads" element={<Roads />} />
                 <Route path="stations" element={<Stations />} />
+                <Route path="buses" element={<Buses />} />
                 <Route path="alerts" element={<Alerts />} />
                 <Route path="users" element={<Users />} />
             </Route>

@@ -20,3 +20,7 @@ export const getAllUsers = async () => {
     const { data } = await axiosAuth.get("/Auth/users");
     return data;
 };
+
+export const registerAdmin = async (data) => {
+    return await axiosAuth.post("/Auth/register-admin", data);
+};

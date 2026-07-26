@@ -1,8 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useUsersStore } from "../usersStore.js";
+import { AdminModal } from "./AdminModal.jsx";
 
 export const Users = () => {
   const { users, loading, getUsers } = useUsersStore();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     getUsers();
@@ -11,9 +13,17 @@ export const Users = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold text-main-blue">Usuarios Registrados en el Sistema</h1>
-        <p className="text-gray-500 text-sm">Visualización de usuarios y administradores registrados desde Auth-Server</p>
+      <div className="flex justify-between items-center mb-6">
+        <div>
+          <h1 className="text-2xl font-bold text-main-blue">Usuarios Registrados en el Sistema</h1>
+          <p className="text-gray-500 text-sm">Visualización de usuarios y administradores registrados desde Auth-Server</p>
+        </div>
+        <button
+          onClick={() => setIsModalOpen(true)}
+          className="bg-main-green hover:bg-[#3da300] text-white px-4 py-2 rounded-lg font-medium transition-colors shadow-sm"
+        >
+          + Nuevo Admin
+        </button>
       </div>
 
       {/* Table */}
@@ -77,6 +87,11 @@ export const Users = () => {
           </div>
         )}
       </div>
+
+      <AdminModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+      />
     </div>
   );
 };

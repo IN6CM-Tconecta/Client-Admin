@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAlertsStore } from "../alertsStore.js";
+import { X } from "lucide-react";
 
 export const AlertModal = ({ isOpen, onClose }) => {
   const { createAlert } = useAlertsStore();
@@ -35,9 +36,9 @@ export const AlertModal = ({ isOpen, onClose }) => {
           <h3 className="font-bold text-lg">Emitir Nueva Alerta Operativa</h3>
           <button
             onClick={onClose}
-            className="text-white hover:text-light-green text-xl font-bold transition-colors"
+            className="text-white hover:text-light-green transition-colors"
           >
-            ✕
+            <X size={24} />
           </button>
         </div>
 

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAlertsStore } from "../alertsStore.js";
 import { AlertModal } from "./AlertModal.jsx";
+import { AlertTriangle, Wrench, Info, Plus } from "lucide-react";
 
 export const Alerts = () => {
   const { alerts, loading, getAlerts, resolveAlert } = useAlertsStore();
@@ -13,12 +14,12 @@ export const Alerts = () => {
   const getTypeBadge = (typeAlert) => {
     switch (typeAlert) {
       case "INCIDENT":
-        return <span className="px-2.5 py-1 text-xs font-bold rounded-full bg-rose-100 text-rose-800">🚨 INCIDENTE</span>;
+        return <span className="px-2.5 py-1 text-xs font-bold rounded-full bg-rose-100 text-rose-800 flex items-center gap-1 w-max"><AlertTriangle size={14} /> INCIDENTE</span>;
       case "MAINTENANCE":
-        return <span className="px-2.5 py-1 text-xs font-bold rounded-full bg-amber-100 text-amber-800">🛠️ MANTENIMIENTO</span>;
+        return <span className="px-2.5 py-1 text-xs font-bold rounded-full bg-amber-100 text-amber-800 flex items-center gap-1 w-max"><Wrench size={14} /> MANTENIMIENTO</span>;
       case "INFO":
       default:
-        return <span className="px-2.5 py-1 text-xs font-bold rounded-full bg-sky-100 text-sky-800">ℹ️ INFORMACIÓN</span>;
+        return <span className="px-2.5 py-1 text-xs font-bold rounded-full bg-sky-100 text-sky-800 flex items-center gap-1 w-max"><Info size={14} /> INFORMACIÓN</span>;
     }
   };
 
@@ -35,7 +36,7 @@ export const Alerts = () => {
           onClick={() => setModalOpen(true)}
           className="bg-main-green hover:bg-[#3da300] text-white font-semibold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm flex items-center gap-2 self-start md:self-auto"
         >
-          <span>+</span> Emitir Alerta
+          <Plus size={16} /> Emitir Alerta
         </button>
       </div>
 

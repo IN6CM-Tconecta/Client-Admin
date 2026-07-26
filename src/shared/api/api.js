@@ -11,7 +11,7 @@ import { useAuthStore } from "../../features/auth/authStore.js";
 
 // Instancia de axios para autenticación
 const axiosAuth = axios.create({
-    baseURL: import.meta.env.VITE_AUTH_URL,
+    baseURL: import.meta.env.VITE_AUTH_URL || "http://localhost:8080/api",
     timeout: 5000,
     headers: {
         "Content-Type": "application/json",
@@ -20,7 +20,7 @@ const axiosAuth = axios.create({
 
 // Instancia de axios para administración
 const axiosAdmin = axios.create({
-    baseURL: import.meta.env.VITE_ADMIN_URL,
+    baseURL: import.meta.env.VITE_ADMIN_URL || "http://localhost:3001/TCONECTA/v1",
     timeout: 5000,
     headers: {
         "Content-Type": "application/json",
