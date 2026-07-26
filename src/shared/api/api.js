@@ -70,17 +70,20 @@ const handleRefreshToken = async function (_error) {
     }
     const status = _error.response?.status;
     const errorCode = _error.response?.data?.error;
-    const requestUrl = _original.url || "";
-    const isRefreshEndpoint = requestUrl.includes("/auth/refresh");
-    const shouldAttemptRefresh =
-        !isRefreshEndpoint &&
-        // La mayoría de casos es 401 (TokenExpiredError)
-        status === 401;
+    const requestUrl = (_original.url || "").toLowerCase();
+    const isAuthEndpoint =
+        requestUrl.includes("/auth/login") ||
+        requestUrl.includes("/auth/register") ||
+        requestUrl.includes("/auth/recover-password") ||
+        requestUrl.includes("/auth/reset-password") ||
+        requestUrl.includes("/auth/refresh");
 
-    // Algunos servicios pueden responder 403 con `error: TOKEN_EXPIRED`
-    const shouldAttemptRefreshFrom403 =
-        !isRefreshEndpoint && status === 403 && errorCode === "TOKEN_EXPIRED";
+    if (isAuthEndpoint) {
+        return Promise.reject(_error);
+    }
 
+    const shouldAttemptRefresh = status === 401;
+    const shouldAttemptRefreshFrom403 = status === 403 && errorCode === "TOKEN_EXPIRED";
     const shouldRefresh = shouldAttemptRefresh || shouldAttemptRefreshFrom403;
 
     if (shouldRefresh) {
@@ -148,6 +151,5 @@ axiosAdmin.interceptors.response.use((res) => res, handleRefreshToken);
 // en lugar de exportar directamente las instancias. 
 // De esta manera, cada vez que se importe la función, se garantizará que las instancias de axios tengan los interceptores 
 // configurados correctamente. Por ejemplo, se podría exportar una función getAxiosAuth() que devuelva la instancia de axiosAuth con el interceptor aplicado, y lo mismo para axiosAdmin.
-// asdasdasdasdd
 export { axiosAuth, axiosAdmin };
 export { handleRefreshToken };
